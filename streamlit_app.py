@@ -2,97 +2,177 @@ import streamlit as st
 import pandas as pd
 import re
 
-# Apply custom CSS for enhanced aesthetics with vibrant and pastel colors
+# Apply custom CSS for enhanced aesthetics with modern colors for light and dark modes
 st.markdown(
     """
     <style>
-    /* Overall Background */
+    /* Import 'Poppins' font from Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    /* Common Styles */
     body {
-        background-color: #FFF8F0; /* Soft pastel background */
+        font-family: 'Poppins', sans-serif;
     }
-    /* Title Styling */
     .title {
-        color: #FF6F61; /* Vibrant coral */
         font-size: 48px;
         text-align: center;
-        font-family: 'Poppins', sans-serif;
         margin-bottom: 10px;
+        font-weight: 600;
     }
-    /* Subtitle Styling */
     .subtitle {
-        color: #6B5B95; /* Muted purple */
         font-size: 24px;
         text-align: center;
-        font-family: 'Poppins', sans-serif;
         margin-bottom: 30px;
+        font-weight: 400;
     }
-    /* Team Members List */
     .names-list {
-        color: #2C3E50;
         font-size: 20px;
         list-style-type: none;
         padding: 0;
         text-align: center;
+        margin-bottom: 40px;
     }
     .names-list li {
         padding: 5px 0;
+        font-weight: 500;
     }
-    /* Section Headers */
     .section-header {
-        color: #ECBDC4; /* Fresh green */
         font-size: 32px;
         margin-top: 40px;
-        border-bottom: 3px solid #ECBDC4;
+        border-bottom: 3px solid;
         padding-bottom: 10px;
-        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
     }
-    /* Input Fields Styling */
     textarea textarea {
         background-color: #FFFFFF;
         border: 1px solid #ccc;
         border-radius: 5px;
+        padding: 10px;
     }
-    /* Contribution Table */
     .contribution-table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
+        font-family: 'Poppins', sans-serif;
     }
     .contribution-table th, .contribution-table td {
-        border: 1px solid #A8A8A8;
+        border: 1px solid;
         text-align: left;
         padding: 12px;
     }
     .contribution-table th {
-        background-color: #ECBDC4;
-        color: white;
+        font-weight: 600;
     }
-    /* Footer Styling */
     .footer {
         text-align: center;
-        color: #A8A8A8;
         margin-top: 50px;
         font-size: 14px;
-        font-family: 'Poppins', sans-serif;
+        color: #A0AEC0;
     }
-    /* Button Styling */
     .stButton button {
-        background-color: #FF6F61;
-        color: white;
         border: none;
         border-radius: 5px;
         padding: 10px 20px;
         font-size: 16px;
         cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        transition: background-color 0.3s ease;
     }
-    .stButton button:hover {
-        background-color: #e65c54;
-    }
-    /* Collapsible Sections */
     .streamlit-expanderHeader {
         font-size: 20px;
         font-weight: bold;
-        color: #6B5B95;
+    }
+
+    /* Light Mode Styles */
+    @media (prefers-color-scheme: light) {
+        body {
+            background-color: #F5F7FA; /* Light neutral background */
+            color: #2D3748; /* Dark slate text */
+        }
+        .title {
+            color: #1A202C; /* Darker shade for titles */
+        }
+        .subtitle {
+            color: #4A5568; /* Slate gray for subtitles */
+        }
+        .names-list {
+            color: #1A202C; /* Dark color for names in light mode */
+        }
+        .section-header {
+            color: #2B6CB0; /* Blue for section headers */
+            border-color: #2B6CB0;
+        }
+        .contribution-table th {
+            background-color: #2B6CB0; /* Blue header */
+            color: white;
+            border-color: #CBD5E0;
+        }
+        .contribution-table td {
+            border-color: #CBD5E0;
+        }
+        .contribution-table tr:nth-child(even) {
+            background-color: #EDF2F7; /* Light gray for even rows */
+        }
+        .footer {
+            color: #A0AEC0;
+        }
+        .stButton button {
+            background-color: #2B6CB0; /* Blue button */
+            color: white;
+        }
+        .stButton button:hover {
+            background-color: #2C5282; /* Darker blue on hover */
+        }
+        /* Collapsible Sections */
+        .streamlit-expanderHeader {
+            color: #2B6CB0; /* Blue for headers */
+        }
+    }
+
+    /* Dark Mode Styles */
+    @media (prefers-color-scheme: dark) {
+        body {
+            background-color: #1A202C; /* Dark background */
+            color: #E2E8F0; /* Light text */
+        }
+        .title {
+            color: #63B3ED; /* Light blue for titles */
+        }
+        .subtitle {
+            color: #A0AEC0; /* Grayish blue for subtitles */
+        }
+        .names-list {
+            color: #E2E8F0; /* Keep same light color in dark mode */
+        }
+        .section-header {
+            color: #90CDF4; /* Light blue for section headers */
+            border-color: #90CDF4;
+        }
+        .contribution-table th {
+            background-color: #63B3ED; /* Light blue header */
+            color: white;
+            border-color: #4A5568;
+        }
+        .contribution-table td {
+            border-color: #4A5568;
+        }
+        .contribution-table tr:nth-child(even) {
+            background-color: #2D3748; /* Darker gray for even rows */
+        }
+        .footer {
+            color: #A0AEC0;
+        }
+        .stButton button {
+            background-color: #63B3ED; /* Light blue button */
+            color: white;
+        }
+        .stButton button:hover {
+            background-color: #4299E1; /* Darker blue on hover */
+        }
+        /* Collapsible Sections */
+        .streamlit-expanderHeader {
+            color: #63B3ED; /* Light blue for headers */
+        }
     }
     </style>
     """,
@@ -118,7 +198,7 @@ st.markdown('<div class="section-header">Project Proposal</div>', unsafe_allow_h
 # YouTube Video Embed
 with st.container():
     st.markdown("#### **Project Overview Video**")
-    youtube_url = st.text_input("Paste your YouTube video URL here:")
+    youtube_url = st.text_input("Youtube Video Here:")
     if youtube_url:
         # Extract the video ID from the URL
         match = re.search(r'(?:v=|\/)([0-9A-Za-z_-]{11}).*', youtube_url)
@@ -146,25 +226,22 @@ for subsection in subsections:
 # Contribution Table
 st.markdown('<div class="section-header">Contributions</div>', unsafe_allow_html=True)
 
-# Create a DataFrame for contributions
+# Create a DataFrame for contributions with specified entries
 contribution_data = {
     "Team Member": names,
-    "Contribution": [""] * len(names)
+    "Contribution": [
+        "- Created, organized, and managed website <br> - Organized meetings <br> - References <br> - Potential Results & Discussions.",
+        "- Introduction & Background <br> - Potential Results & Discussions.",
+        "- Problem Definition <br> - Methods",
+        "- Methods <br> - References",
+        "- Introduction & Background <br> - Problem Definition."
+    ]
 }
 df = pd.DataFrame(contribution_data)
 
 # Style the table using HTML
 def table_to_html(df):
-    return df.to_html(index=False, classes='contribution-table')
+    return df.to_html(index=False, classes='contribution-table', escape=False)
 
 st.markdown(table_to_html(df), unsafe_allow_html=True)
 
-# Footer
-st.markdown(
-    """
-    <div class="footer">
-        &copy; 2024 Fall ML Project Team. All rights reserved.
-    </div>
-    """,
-    unsafe_allow_html=True
-)
