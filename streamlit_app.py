@@ -1,53 +1,150 @@
 import streamlit as st
-from openai import OpenAI
+import pandas as pd
+import re
 
-# Show title and description.
-st.title("📄 Document question answering")
-st.write(
-    "Upload a document below and ask a question about it – GPT will answer! "
-    "To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys). "
+# Apply custom CSS for enhanced aesthetics
+st.markdown(
+    """
+    <style>
+    /* Overall Background */
+    .main {
+        background-color: #f0f4f8;
+    }
+    /* Title Styling */
+    .title {
+        color: #2C3E50;
+        font-size: 48px;
+        text-align: center;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        margin-bottom: 20px;
+    }
+    /* Subtitle Styling */
+    .subtitle {
+        color: #34495E;
+        font-size: 24px;
+        text-align: center;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        margin-bottom: 40px;
+    }
+    /* Team Members List */
+    .names-list {
+        color: #2C3E50;
+        font-size: 20px;
+        list-style-type: none;
+        padding: 0;
+        text-align: center;
+    }
+    .names-list li {
+        padding: 5px 0;
+    }
+    /* Section Headers */
+    .section-header {
+        color: #2980B9;
+        font-size: 32px;
+        margin-top: 40px;
+        border-bottom: 3px solid #2980B9;
+        padding-bottom: 10px;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    /* Input Fields Styling */
+    textarea textarea {
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    /* Contribution Table */
+    .contribution-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    .contribution-table th, .contribution-table td {
+        border: 1px solid #bdc3c7;
+        text-align: left;
+        padding: 12px;
+    }
+    .contribution-table th {
+        background-color: #3498DB;
+        color: white;
+    }
+    /* Footer Styling */
+    .footer {
+        text-align: center;
+        color: #95A5A6;
+        margin-top: 50px;
+        font-size: 14px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
 )
 
-# Ask user for their OpenAI API key via `st.text_input`.
-# Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
-# via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
-openai_api_key = st.text_input("OpenAI API Key", type="password")
-if not openai_api_key:
-    st.info("Please add your OpenAI API key to continue.", icon="🗝️")
-else:
+# Title and Subtitle
+st.markdown('<div class="title">Fall 2024 ML Project</div>', unsafe_allow_html=True)
 
-    # Create an OpenAI client.
-    client = OpenAI(api_key=openai_api_key)
+# Team Members
+st.markdown("### **Team Members**", unsafe_allow_html=True)
+names = ["Erin Tan", "Eileen Yang", "Wesley Tam", "Tong Jing", "Steven Li"]
+st.markdown(
+    "<ul class='names-list'>" +
+    "".join([f"<li>{name}</li>" for name in names]) +
+    "</ul>",
+    unsafe_allow_html=True
+)
 
-    # Let the user upload a file via `st.file_uploader`.
-    uploaded_file = st.file_uploader(
-        "Upload a document (.txt or .md)", type=("txt", "md")
-    )
+# Project Proposal Section
+st.markdown('<div class="section-header">Project Proposal</div>', unsafe_allow_html=True)
 
-    # Ask the user for a question via `st.text_area`.
-    question = st.text_area(
-        "Now ask a question about the document!",
-        placeholder="Can you give me a short summary?",
-        disabled=not uploaded_file,
-    )
+# YouTube Video Embed
+with st.container():
+    st.markdown("#### **Project Overview Video**")
+    youtube_url = st.text_input("youtube video here:")
+    if youtube_url:
+        # Extract the video ID from the URL
+        match = re.search(r'(?:v=|\/)([0-9A-Za-z_-]{11}).*', youtube_url)
+        if match:
+            video_id = match.group(1)
+            embed_url = f"https://www.youtube.com/embed/{video_id}"
+            st.video(embed_url)
+        else:
+            st.warning("Please enter a valid YouTube URL.")
 
-    if uploaded_file and question:
+# Subsections with Collapsible Containers for Better Organization
+subsections = [
+    "Introduction & Background",
+    "Problem Definition",
+    "Methods",
+    "Potential Results & Discussions",
+    "References",
+    "Gantt Chart"
+]
 
-        # Process the uploaded file and question.
-        document = uploaded_file.read().decode()
-        messages = [
-            {
-                "role": "user",
-                "content": f"Here's a document: {document} \n\n---\n\n {question}",
-            }
-        ]
+for subsection in subsections:
+    with st.expander(f"**{subsection}**", expanded=False):
+        st.text_area(f"Enter content for {subsection.lower()} here...", height=150)
 
-        # Generate an answer using the OpenAI API.
-        stream = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=messages,
-            stream=True,
-        )
+# Contribution Table
+st.markdown('<div class="section-header">Contributions</div>', unsafe_allow_html=True)
 
-        # Stream the response to the app using `st.write_stream`.
-        st.write_stream(stream)
+# Create a DataFrame for contributions
+contribution_data = {
+    "Team Member": names,
+    "Contribution": [""] * len(names)
+}
+df = pd.DataFrame(contribution_data)
+
+# Style the table using HTML
+def table_to_html(df):
+    return df.to_html(index=False, classes='contribution-table')
+
+st.markdown(table_to_html(df), unsafe_allow_html=True)
+
+# Footer
+st.markdown(
+    """
+    <div class="footer">
+        &copy; 2024 Fall ML Project Team. All rights reserved.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
