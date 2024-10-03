@@ -2,29 +2,29 @@ import streamlit as st
 import pandas as pd
 import re
 
-# Apply custom CSS for enhanced aesthetics
+# Apply custom CSS for enhanced aesthetics with vibrant and pastel colors
 st.markdown(
     """
     <style>
     /* Overall Background */
-    .main {
-        background-color: #f0f4f8;
+    body {
+        background-color: #FFF8F0; /* Soft pastel background */
     }
     /* Title Styling */
     .title {
-        color: #2C3E50;
+        color: #FF6F61; /* Vibrant coral */
         font-size: 48px;
         text-align: center;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        margin-bottom: 20px;
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: 10px;
     }
     /* Subtitle Styling */
     .subtitle {
-        color: #34495E;
+        color: #6B5B95; /* Muted purple */
         font-size: 24px;
         text-align: center;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        margin-bottom: 40px;
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: 30px;
     }
     /* Team Members List */
     .names-list {
@@ -39,16 +39,16 @@ st.markdown(
     }
     /* Section Headers */
     .section-header {
-        color: #2980B9;
+        color: #ECBDC4; /* Fresh green */
         font-size: 32px;
         margin-top: 40px;
-        border-bottom: 3px solid #2980B9;
+        border-bottom: 3px solid #ECBDC4;
         padding-bottom: 10px;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-family: 'Poppins', sans-serif;
     }
     /* Input Fields Styling */
     textarea textarea {
-        background-color: #ffffff;
+        background-color: #FFFFFF;
         border: 1px solid #ccc;
         border-radius: 5px;
     }
@@ -59,20 +59,40 @@ st.markdown(
         margin-top: 20px;
     }
     .contribution-table th, .contribution-table td {
-        border: 1px solid #bdc3c7;
+        border: 1px solid #A8A8A8;
         text-align: left;
         padding: 12px;
     }
     .contribution-table th {
-        background-color: #3498DB;
+        background-color: #ECBDC4;
         color: white;
     }
     /* Footer Styling */
     .footer {
         text-align: center;
-        color: #95A5A6;
+        color: #A8A8A8;
         margin-top: 50px;
         font-size: 14px;
+        font-family: 'Poppins', sans-serif;
+    }
+    /* Button Styling */
+    .stButton button {
+        background-color: #FF6F61;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .stButton button:hover {
+        background-color: #e65c54;
+    }
+    /* Collapsible Sections */
+    .streamlit-expanderHeader {
+        font-size: 20px;
+        font-weight: bold;
+        color: #6B5B95;
     }
     </style>
     """,
@@ -98,7 +118,7 @@ st.markdown('<div class="section-header">Project Proposal</div>', unsafe_allow_h
 # YouTube Video Embed
 with st.container():
     st.markdown("#### **Project Overview Video**")
-    youtube_url = st.text_input("youtube video here:")
+    youtube_url = st.text_input("Paste your YouTube video URL here:")
     if youtube_url:
         # Extract the video ID from the URL
         match = re.search(r'(?:v=|\/)([0-9A-Za-z_-]{11}).*', youtube_url)
