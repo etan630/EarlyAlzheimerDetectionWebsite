@@ -1,8 +1,7 @@
 # 📄 Document question answering template
+Description of our project!
 
-A simple Streamlit app that answers questions about an uploaded document via OpenAI's GPT-3.5.
-
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://document-question-answering-template.streamlit.app/)
+[![Open in Streamlit]([https://document-question-answering-template.streamlit.app/](https://earlyalzheimerdetection.streamlit.app))
 
 ### How to run it on your own machine
 
