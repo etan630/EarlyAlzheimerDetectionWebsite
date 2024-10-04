@@ -106,7 +106,7 @@ def display_header():
     st.markdown('<div class="title">Alzheimer Detection</div>', unsafe_allow_html=True)
 
 # -------------------- Team Members Section --------------------
-def display_team_members(names):
+def display_team_members(names, links):
     """
     Displays the list of team members in a styled line.
 
@@ -116,7 +116,7 @@ def display_team_members(names):
     st.markdown("### <a id='team-members'></a>**Team Members**", unsafe_allow_html=True)
     st.markdown(
         "<div class='names-list'>" +
-        " ".join([f"<span>{name}</span>" for name in names]) +
+        " ".join([f"<span><a href='{link}'>{name}</a></span>" for name, link in zip(names, links)]) +
         "</div>",
         unsafe_allow_html=True
     )
@@ -146,17 +146,28 @@ def display_project_proposal():
 
     st.markdown("### <a id='problem-definition'></a>**Problem Definition**</h3>", unsafe_allow_html=True)
     st.markdown(
-        "The Problem:<br>"
+        "**The Problem**<br>"
         "Alzheimer’s disease is a progressive neurodegenerative disorder, and early detection is critical for patient care, yet it is often diagnosed too late due to the difficulty of identifying subtle early-stage brain degeneration.<br><br>"
-        "The Solution:<br>"
+        "**The Solution**<br>"
         "We propose developing a machine learning model to analyze MRI images for early-stage Alzheimer’s detection, identifying subtle patterns in brain degeneration that may be missed by the human eye.<br><br>"
-        "How it differs from prior literature:<br>"
+        "**How it Differs from Prior Literature**<br>"
         "Existing machine learning models mainly focus on detecting moderate to advanced stages of Alzheimer’s when brain degeneration is more pronounced. Our approach targets early-stage detection, which is harder to identify but crucial for improving patient outcomes by allowing timely clinical trials and treatments.",
         unsafe_allow_html=True
     )
 
     st.markdown("### <a id='methods'></a>**Methods**</h3>", unsafe_allow_html=True)
-    st.markdown("Enter content for methods here...")
+    st.markdown(
+        "We will use the [OASIS MRI dataset](https://www.kaggle.com/datasets/ninadaithal/imagesoasis), which consists of 80,000 MRI brain scans, labeled according to the progression of Alzheimer’s present in the patient.<br><br>"
+        "<b>Preprocessing Methods:</b><br>"
+        "1. **Image Resizing**: All images will be resized to ensure they have the same dimensions, allowing for consistent feature space across all data points.<br>"
+        "2. **Principal Component Analysis (PCA)**: We will apply PCA to reduce the dimensionality of our feature space, helping to prevent overfitting and decrease training times.<br>"
+        "3. **Feature Standardization**: To ensure the viability of l1 and l2 penalties in our models, we will standardize the pixel values of our images before training.<br><br>"
+        "<b>ML Algorithms:</b><br>"
+        "1. **Multiclass Logistic Regression**: We will use logistic regression with possible l1 and/or l2 penalties for regularization, helping to improve generalization.<br>"
+        "2. **Naive Bayes**: This algorithm assumes independence between features, which makes it efficient and robust, especially in high-dimensional feature spaces like image data.<br>"
+        "3. **Convolutional Neural Networks (CNN)**: CNNs are well-suited for image classification tasks, as each layer can detect features and patterns through the use of sliding kernels, progressively recognizing larger and more complex patterns in the images.",
+        unsafe_allow_html=True
+    )
 
     st.markdown("### <a id='potential-results'></a>**Potential Results & Discussions**</h3>", unsafe_allow_html=True)
     st.markdown("Enter content for potential results and discussions here...")
@@ -213,13 +224,6 @@ def display_gitrepo():
         unsafe_allow_html=True
     )
 
-# -------------------- Footer Section --------------------
-def display_footer():
-    """
-    Displays the footer of the application.
-    """
-    st.markdown('<div class="footer">© 2024 ML Project Team. All rights reserved.</div>', unsafe_allow_html=True)
-
 # -------------------- Helper Functions --------------------
 def extract_youtube_id(url):
     """
@@ -261,16 +265,23 @@ def main():
     team_members = ["Erin Tan", "Eileen Yang", "Wesley Tam", "Tong Jing", "Steven Li"]
 
     # Display sections
-    display_team_members(team_members)  # Automatically displays at the top
+    team_members = ["Erin Tan", "Eileen Yang", "Wesley Tam", "Tong Jing", "Steven Li"]
+    team_links = [
+        "https://www.linkedin.com/in/erinctan/",
+        "https://www.linkedin.com/in/eileenyang10/",
+        "https://www.linkedin.com/in/wesley-tam-64a83b271/",
+        "https://www.linkedin.com/in/tong-jing-05y/",
+        "https://www.linkedin.com/in/stevenliii/"
+    ]
+
+    # Call the function with the team members and their links
+    display_team_members(team_members, team_links)
 
     display_project_proposal()
     display_contributions(team_members)
 
     # Display Github Repo
     display_gitrepo()
-
-    # Display Footer
-    display_footer()
 
 if __name__ == "__main__":
     main()
