@@ -156,7 +156,8 @@ def display_project_proposal():
     )
 
     st.markdown("### <a id='methods'></a>**Methods**</h3>", unsafe_allow_html=True)
-    st.markdown("Enter content for methods here...")
+    dataset_url = 'https://www.kaggle.com/datasets/ninadaithal/imagesoasis'
+    st.markdown("We will use the OASIS MRI [dataset](%s), which consists of 80,000 MRI brain scans, which have been labeled according to the progression of Alzheimer’s present in the patient. An intuitive choice for our feature space in our classification task is the gray scale value of each individual pixel. In order for each of our images to have the same amount of features, we will preprocess our images such that they are all the same size. The first method that we plan on using is a multiclass logistic regression with a possible l1 and or l2 penalty. To prevent overfitting and decrease training times, we can reduce the dimensionality of our feature space through PCA. Similarly, for our l1 and l2 penalty to be viable, we must standardize each of our features before training. Another method that we plan on using is Naive Bayes. Naive Bayes works by making the rather simplistic assumption that each of our features are independent, which allows Naive Bayes to be more robust and efficient in high feature spaces than other models. Another method we can use is a convolutional neural network. A convolutional neural network would work incredibly well on our image classification task as each layer of our network can detect certain features (through the sliding kernel that we were taught in class), and the culmination of each of these layers would be able to recognize larger patterns in the images." % dataset_url)
 
     st.markdown("### <a id='potential-results'></a>**Potential Results & Discussions**</h3>", unsafe_allow_html=True)
     st.markdown("Enter content for potential results and discussions here...")
