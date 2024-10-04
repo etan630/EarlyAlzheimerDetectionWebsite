@@ -103,7 +103,7 @@ def display_header():
     """
     Displays the main title and subtitle of the application.
     """
-    st.markdown('<div class="title">Fall 2024 ML Project</div>', unsafe_allow_html=True)
+    st.markdown('<div class="title">Alzheimer Detection</div>', unsafe_allow_html=True)
 
 # -------------------- Team Members Section --------------------
 def display_team_members(names):
@@ -206,8 +206,13 @@ def display_contributions(names):
 
 # -------------------- Git Repo Section --------------------
 def display_gitrepo():
-     # Add GitHub Repository link
-    st.markdown("[GitHub Repository](https://github.com/etan630/Alzheimer-Detection)", unsafe_allow_html=True)
+    """
+    Displays the GitHub Repository link as an embedded badge.
+    """
+    st.markdown(
+        "[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/etan630/Alzheimer-Detection)",
+        unsafe_allow_html=True
+    )
 
 # -------------------- Footer Section --------------------
 def display_footer():
