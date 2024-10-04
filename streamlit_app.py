@@ -47,12 +47,6 @@ def apply_custom_css():
         padding-bottom: 10px;
         font-weight: 600;
     }
-    textarea textarea {
-        background-color: #FFFFFF;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 10px;
-    }
     .contribution-table {
         width: 100%;
         border-collapse: collapse;
@@ -215,7 +209,7 @@ def display_project_proposal():
 
     # Project Overview Video
     st.markdown("#### **Project Overview Video**")
-    youtube_url = st.text_input("Paste your YouTube video URL here:")
+    youtube_url = st.text_input("Youtube Video Here:")
     if youtube_url:
         video_id = extract_youtube_id(youtube_url)
         if video_id:
@@ -236,7 +230,18 @@ def display_project_proposal():
 
     for subsection in subsections:
         with st.expander(f"**{subsection}**", expanded=False):
-            st.text_area(f"Enter content for {subsection.lower()} here...", height=150)
+            if subsection == "Problem Definition":
+                st.markdown(
+                    "The Problem:<br>"
+                    "Alzheimer’s disease is a progressive neurodegenerative disorder, and early detection is critical for patient care, yet it is often diagnosed too late due to the difficulty of identifying subtle early-stage brain degeneration.<br><br>"
+                    "The Solution:<br>"
+                    "We propose developing a machine learning model to analyze MRI images for early-stage Alzheimer’s detection, identifying subtle patterns in brain degeneration that may be missed by the human eye.<br><br>"
+                    "How it differs from prior literature:<br>"
+                    "Existing machine learning models mainly focus on detecting moderate to advanced stages of Alzheimer’s when brain degeneration is more pronounced. Our approach targets early-stage detection, which is harder to identify but crucial for improving patient outcomes by allowing timely clinical trials and treatments.",
+                    unsafe_allow_html=True
+                )
+            else:
+                st.markdown(f"Enter content for {subsection.lower()} here...", unsafe_allow_html=True)
 
 # -------------------- Contribution Section --------------------
 def display_contributions(names):
