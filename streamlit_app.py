@@ -204,7 +204,9 @@ def display_contributions(names):
     
     st.markdown(table_to_html(df), unsafe_allow_html=True)
 
-    # Add GitHub Repository link
+# -------------------- Git Repo Section --------------------
+def display_gitrepo():
+     # Add GitHub Repository link
     st.markdown("[GitHub Repository](https://github.com/etan630/Alzheimer-Detection)", unsafe_allow_html=True)
 
 # -------------------- Footer Section --------------------
@@ -248,6 +250,9 @@ def main():
 
     # Display Contributions
     display_contributions(team_members)
+
+    # Display Github Repo
+    display_gitrepo()
 
     # Display Footer
     display_footer()
