@@ -113,7 +113,7 @@ def display_team_members(names):
     Args:
         names (list): List of team member names.
     """
-    st.markdown("### **Team Members**", unsafe_allow_html=True)
+    st.markdown("### <a id='team-members'></a>**Team Members**", unsafe_allow_html=True)
     st.markdown(
         "<div class='names-list'>" +
         " ".join([f"<span>{name}</span>" for name in names]) +
@@ -125,9 +125,9 @@ def display_team_members(names):
 def display_project_proposal():
     """
     Displays the Project Proposal section, including an embedded YouTube video
-    and collapsible subsections for detailed content.
+    and subsections for detailed content.
     """
-    st.markdown('<div class="section-header">Project Proposal</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header" id="project-proposal">Project Proposal</div>', unsafe_allow_html=True)
 
     # Project Overview Video
     st.markdown("#### **Project Overview Video**")
@@ -140,33 +140,32 @@ def display_project_proposal():
         else:
             st.warning("Please enter a valid YouTube URL.")
 
-    # Collapsible Subsections
-    subsections = [
-        "Introduction & Background",
-        "Problem Definition",
-        "Methods",
-        "Potential Results & Discussions",
-        "References",
-        "Gantt Chart"
-    ]
+    # Subsections with direct content
+    st.markdown("### <a id='introduction'></a>**Introduction & Background**</h3>", unsafe_allow_html=True)
+    st.markdown("Enter content for introduction and background here...")
 
-    for subsection in subsections:
-        with st.expander(f"**{subsection}**", expanded=False):
-            if subsection == "Gantt Chart":
-                # Display the Gantt chart image from the project folder
-                st.image("gantt_chart.png", caption='Gantt Chart', use_column_width=True)
-            elif subsection == "Problem Definition":
-                st.markdown(
-                    "The Problem:<br>"
-                    "Alzheimer’s disease is a progressive neurodegenerative disorder, and early detection is critical for patient care, yet it is often diagnosed too late due to the difficulty of identifying subtle early-stage brain degeneration.<br><br>"
-                    "The Solution:<br>"
-                    "We propose developing a machine learning model to analyze MRI images for early-stage Alzheimer’s detection, identifying subtle patterns in brain degeneration that may be missed by the human eye.<br><br>"
-                    "How it differs from prior literature:<br>"
-                    "Existing machine learning models mainly focus on detecting moderate to advanced stages of Alzheimer’s when brain degeneration is more pronounced. Our approach targets early-stage detection, which is harder to identify but crucial for improving patient outcomes by allowing timely clinical trials and treatments.",
-                    unsafe_allow_html=True
-                )
-            else:
-                st.markdown(f"Enter content for {subsection.lower()} here...", unsafe_allow_html=True)
+    st.markdown("### <a id='problem-definition'></a>**Problem Definition**</h3>", unsafe_allow_html=True)
+    st.markdown(
+        "The Problem:<br>"
+        "Alzheimer’s disease is a progressive neurodegenerative disorder, and early detection is critical for patient care, yet it is often diagnosed too late due to the difficulty of identifying subtle early-stage brain degeneration.<br><br>"
+        "The Solution:<br>"
+        "We propose developing a machine learning model to analyze MRI images for early-stage Alzheimer’s detection, identifying subtle patterns in brain degeneration that may be missed by the human eye.<br><br>"
+        "How it differs from prior literature:<br>"
+        "Existing machine learning models mainly focus on detecting moderate to advanced stages of Alzheimer’s when brain degeneration is more pronounced. Our approach targets early-stage detection, which is harder to identify but crucial for improving patient outcomes by allowing timely clinical trials and treatments.",
+        unsafe_allow_html=True
+    )
+
+    st.markdown("### <a id='methods'></a>**Methods**</h3>", unsafe_allow_html=True)
+    st.markdown("Enter content for methods here...")
+
+    st.markdown("### <a id='potential-results'></a>**Potential Results & Discussions**</h3>", unsafe_allow_html=True)
+    st.markdown("Enter content for potential results and discussions here...")
+
+    st.markdown("### <a id='references'></a>**References**</h3>", unsafe_allow_html=True)
+    st.markdown("Enter references here...")
+
+    st.markdown("### <a id='gantt-chart'></a>**Gantt Chart**</h3>", unsafe_allow_html=True)
+    st.image("gantt_chart.png", caption='Gantt Chart', use_column_width=True)
 
 # -------------------- Contribution Section --------------------
 def display_contributions(names):
@@ -176,7 +175,7 @@ def display_contributions(names):
     Args:
         names (list): List of team member names.
     """
-    st.markdown('<div class="section-header">Contributions</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header" id="contributions">Contributions</div>', unsafe_allow_html=True)
     
     # Define contribution details for each team member
     contribution_data = {
@@ -246,14 +245,25 @@ def main():
     # Display Header
     display_header()
 
+    # Sidebar for navigation
+    st.sidebar.title("Navigation")
+    st.sidebar.markdown("[Team Members](#team-members)")
+    st.sidebar.markdown("[Project Proposal](#project-proposal)")
+    st.sidebar.markdown("[Introduction & Background](#introduction)")
+    st.sidebar.markdown("[Problem Definition](#problem-definition)")
+    st.sidebar.markdown("[Methods](#methods)")
+    st.sidebar.markdown("[Potential Results & Discussions](#potential-results)")
+    st.sidebar.markdown("[References](#references)")
+    st.sidebar.markdown("[Gantt Chart](#gantt-chart)")
+    st.sidebar.markdown("[Contributions](#contributions)")
+
     # Define team members
     team_members = ["Erin Tan", "Eileen Yang", "Wesley Tam", "Tong Jing", "Steven Li"]
-    display_team_members(team_members)
 
-    # Display Project Proposal
+    # Display sections
+    display_team_members(team_members)  # Automatically displays at the top
+
     display_project_proposal()
-
-    # Display Contributions
     display_contributions(team_members)
 
     # Display Github Repo
