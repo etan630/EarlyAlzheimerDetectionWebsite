@@ -6,7 +6,7 @@ import re
 def apply_custom_css():
     """
     Applies custom CSS to enhance the aesthetics of the Streamlit app.
-    Includes styles for light and dark modes, typography, buttons, tables, and more.
+    Includes styles for light mode only, typography, buttons, tables, and more.
     """
     css = """
     <style>
@@ -16,6 +16,8 @@ def apply_custom_css():
     /* Common Styles */
     body {
         font-family: 'Poppins', sans-serif;
+        background-color: #F5F7FA; /* Light neutral background */
+        color: #2D3748; /* Dark slate text */
     }
     .title {
         font-size: 48px;
@@ -36,16 +38,17 @@ def apply_custom_css():
         text-align: center;
         margin-bottom: 40px;
     }
-    .names-list li {
-        padding: 5px 0;
+    .names-list span {
+        padding: 5px 15px; /* Add padding for better spacing */
         font-weight: 500;
     }
     .section-header {
         font-size: 32px;
         margin-top: 40px;
-        border-bottom: 3px solid;
+        border-bottom: 3px solid #2B6CB0; /* Blue for section headers */
         padding-bottom: 10px;
         font-weight: 600;
+        color: #2B6CB0; /* Color for section headers */
     }
     .contribution-table {
         width: 100%;
@@ -54,12 +57,17 @@ def apply_custom_css():
         font-family: 'Poppins', sans-serif;
     }
     .contribution-table th, .contribution-table td {
-        border: 1px solid;
+        border: 1px solid #CBD5E0; /* Light border color */
         text-align: left;
         padding: 12px;
     }
     .contribution-table th {
+        background-color: #2B6CB0; /* Blue header */
+        color: white;
         font-weight: 600;
+    }
+    .contribution-table tr:nth-child(even) {
+        background-color: #EDF2F7; /* Light gray for even rows */
     }
     .footer {
         text-align: center;
@@ -75,102 +83,16 @@ def apply_custom_css():
         cursor: pointer;
         font-family: 'Poppins', sans-serif;
         transition: background-color 0.3s ease;
+        background-color: #2B6CB0; /* Blue button */
+        color: white;
+    }
+    .stButton button:hover {
+        background-color: #2C5282; /* Darker blue on hover */
     }
     .streamlit-expanderHeader {
         font-size: 20px;
         font-weight: bold;
-    }
-
-    /* Light Mode Styles */
-    @media (prefers-color-scheme: light) {
-        body {
-            background-color: #F5F7FA !important; /* Light neutral background */
-            color: #2D3748 !important; /* Dark slate text */
-        }
-        .title {
-            color: #1A202C !important; /* Darker shade for titles */
-        }
-        .subtitle {
-            color: #4A5568 !important; /* Slate gray for subtitles */
-        }
-        .names-list {
-            color: #1A202C !important; /* Dark color for names in light mode */
-        }
-        .section-header {
-            color: #2B6CB0 !important; /* Blue for section headers */
-            border-color: #2B6CB0 !important;
-        }
-        .contribution-table th {
-            background-color: #2B6CB0 !important; /* Blue header */
-            color: white !important;
-            border-color: #CBD5E0 !important;
-        }
-        .contribution-table td {
-            border-color: #CBD5E0 !important;
-        }
-        .contribution-table tr:nth-child(even) {
-            background-color: #EDF2F7 !important; /* Light gray for even rows */
-        }
-        .footer {
-            color: #A0AEC0 !important;
-        }
-        .stButton button {
-            background-color: #2B6CB0 !important; /* Blue button */
-            color: white !important;
-        }
-        .stButton button:hover {
-            background-color: #2C5282 !important; /* Darker blue on hover */
-        }
-        /* Collapsible Sections */
-        .streamlit-expanderHeader {
-            color: #2B6CB0 !important; /* Blue for headers */
-        }
-    }
-
-    /* Dark Mode Styles */
-    @media (prefers-color-scheme: dark) {
-        body {
-            background-color: #1A202C !important; /* Dark background */
-            color: #E2E8F0 !important; /* Light text */
-        }
-        .title {
-            color: #63B3ED !important; /* Light blue for titles */
-        }
-        .subtitle {
-            color: #A0AEC0 !important; /* Grayish blue for subtitles */
-        }
-        .names-list {
-            color: #E2E8F0 !important; /* Keep same light color in dark mode */
-        }
-        .section-header {
-            color: #90CDF4 !important; /* Light blue for section headers */
-            border-color: #90CDF4 !important;
-        }
-        .contribution-table th {
-            background-color: #63B3ED !important; /* Light blue header */
-            color: white !important;
-            border-color: #4A5568 !important;
-        }
-        .contribution-table td {
-            border-color: #4A5568 !important;
-        }
-        .contribution-table tr:nth-child(even) {
-            background-color: #2D3748 !important; /* Darker gray for even rows */
-        }
-        .footer {
-            color: #A0AEC0 !important;
-        }
-        .stButton button {
-            background-color: #63B3ED !important; /* Light blue button */
-            color: white !important;
-        }
-        .stButton button:hover {
-            background-color: #4299E1 !important; /* Darker blue on hover */
-        }
-        /* Collapsible Sections */
-        .streamlit-expanderHeader {
-            color: #63B3ED !important; /* Light blue for headers */
-        }
+        color: #2B6CB0; /* Blue for headers */
     }
     </style>
     """
@@ -186,16 +108,16 @@ def display_header():
 # -------------------- Team Members Section --------------------
 def display_team_members(names):
     """
-    Displays the list of team members in a styled list.
+    Displays the list of team members in a styled line.
 
     Args:
         names (list): List of team member names.
     """
     st.markdown("### **Team Members**", unsafe_allow_html=True)
     st.markdown(
-        "<ul class='names-list'>" +
-        "".join([f"<li>{name}</li>" for name in names]) +
-        "</ul>",
+        "<div class='names-list'>" +
+        " ".join([f"<span>{name}</span>" for name in names]) +
+        "</div>",
         unsafe_allow_html=True
     )
 
@@ -230,7 +152,10 @@ def display_project_proposal():
 
     for subsection in subsections:
         with st.expander(f"**{subsection}**", expanded=False):
-            if subsection == "Problem Definition":
+            if subsection == "Gantt Chart":
+                # Display the Gantt chart image from the project folder
+                st.image("gantt_chart.png", caption='Gantt Chart', use_column_width=True)
+            elif subsection == "Problem Definition":
                 st.markdown(
                     "The Problem:<br>"
                     "Alzheimer’s disease is a progressive neurodegenerative disorder, and early detection is critical for patient care, yet it is often diagnosed too late due to the difficulty of identifying subtle early-stage brain degeneration.<br><br>"
@@ -257,9 +182,9 @@ def display_contributions(names):
     contribution_data = {
         "Team Member": names,
         "Contribution": [
-            "- Created, organized, and managed website<br>"
+            "- Managed website<br>"
             "- Organized meetings<br>"
-            "- References<br>"
+            "- Problem Definition<br>"
             "- Potential Results & Discussions",
             "- Introduction & Background<br>"
             "- Potential Results & Discussions",
@@ -268,7 +193,7 @@ def display_contributions(names):
             "- Methods<br>"
             "- References",
             "- Introduction & Background<br>"
-            "- Problem Definition"
+            "- References"
         ]
     }
     df = pd.DataFrame(contribution_data)
