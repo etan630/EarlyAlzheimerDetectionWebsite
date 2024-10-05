@@ -142,7 +142,14 @@ def display_project_proposal():
 
     # Subsections with direct content
     st.markdown("### <a id='introduction'></a>**Introduction & Background**</h3>", unsafe_allow_html=True)
-    st.markdown("Enter content for introduction and background here...")
+    st.markdown(
+        """
+        Computer Aided Diagnosis (CAD) is one of the most useful applications of technology in the medical industry today. [3] The use of CAD has the potential to improve and apply to many fields of medicine, especially Alzheimer’s disease. If detected early, the prognosis can be greatly improved, but early diagnosis with computer AI can be inconsistent given the characteristics of the disease, with average accuracy rates spanning 70-95% across various models [1]. Using various classification techniques like Adaboost, studies have been able to detect Alzheimer’s with results exceeding 90% accuracy with differentiation [2].
+
+        The MRI scans from this [dataset](https://www.kaggle.com/datasets/ninadaithal/imagesoasis/data) are categorized by the level of dementia of each patient: Mild, Moderate, Very Mild, and Non-Demented Dementia.
+        """,
+        unsafe_allow_html=True
+    )
 
     st.markdown("### <a id='problem-definition'></a>**Problem Definition**</h3>", unsafe_allow_html=True)
     st.markdown(
@@ -165,15 +172,37 @@ def display_project_proposal():
         "<b>ML Algorithms:</b><br>"
         "1. **Multiclass Logistic Regression**: We will use logistic regression with possible l1 and/or l2 penalties for regularization, helping to improve generalization.<br>"
         "2. **Naive Bayes**: This algorithm assumes independence between features, which makes it efficient and robust, especially in high-dimensional feature spaces like image data.<br>"
-        "3. **Convolutional Neural Networks (CNN)**: CNNs are well-suited for image classification tasks, as each layer can detect features and patterns through the use of sliding kernels, progressively recognizing larger and more complex patterns in the images.",
+        "3. **Convolutional Neural Networks (CNN)**: CNNs are well-suited for image classification tasks, as each layer can detect features and patterns through the use of sliding kernels, progressively recognizing larger and more complex patterns in the images.<br><br>"
+        "These methods use **supervised learning**.",
         unsafe_allow_html=True
     )
 
+    # Updated Potential Results & Discussions section
     st.markdown("### <a id='potential-results'></a>**Potential Results & Discussions**</h3>", unsafe_allow_html=True)
-    st.markdown("Enter content for potential results and discussions here...")
+    st.markdown(
+        """
+        <b>Quantitative Measures:</b><br>
+        1. **Accuracy**: Accuracy is the ratio of correct predictions to the total number of predictions, which can identify how well the model is performing. However, it does not provide enough detail of false negatives (missing a diagnosis).<br>
+        2. **Recall (Sensitivity)**: Recall measures the proportion of people who have early-stage Alzheimer’s that the model correctly identifies. Allows us to highlight the missing positive diagnosis that the model did not detect.<br>
+        3. **Specificity (True Negative Rate)**: Specificity measures the proportion of actual negatives (healthy people without Alzheimer's) that are correctly identified by the model. Having this is important because we want the model to also identify healthy individuals to minimize false positives.<br>
+        4. **Area Under the Receiver Operating Characteristic Curve (AUC-ROC)**: ROC curve graphs plot true positive rate vs false positive rate. AUC ranges from 0 to 1 with 1 being a perfect model. Having a high score in both ensures that the model is good at distinguishing between Alzheimer’s and non-Alzheimer’s cases.<br><br>
+        
+        <b>Project Goals/Expected Results:</b><br>
+        - To develop a model that can detect Alzheimer’s early, in hopes of better prevention of Alzheimer’s progressing. More diagnosis also results in more clinical trials done in order to learn and aid in future research to hopefully find a cure.<br>
+        - The data is anonymous in order to ensure patient confidentiality.<br>
+        - Use ML for image processing to analyze medical scans or images.<br>
+        - We expect that the model we develop will be able to accurately diagnose or find data that can help with diagnosing a patient from their MRI scan.
+        """,
+        unsafe_allow_html=True
+    )
 
     st.markdown("### <a id='references'></a>**References**</h3>", unsafe_allow_html=True)
-    st.markdown("Enter references here...")
+    st.markdown(
+        "[1] A. Bhandarkar et al., “Deep learning based computer aided diagnosis of Alzheimer’s disease: A snapshot of last 5 years, gaps, and future directions,” Artificial Intelligence Review, vol. 57, no. 2, Feb. 2024. doi:10.1007/s10462-023-10644-8 <br><br>"
+        "[2] A. Borji, A. Seifi, and T. H. Hejazi, “An efficient method for detection of Alzheimer’s disease using high-dimensional PET scan images,” Intelligent Decision Technologies, vol. 17, no. 3, pp. 729–749, Jul. 2023. doi:10.3233/idt-220315 <br><br>"
+        "[3] H.-P. Chan, R. K. Samala, L. M. Hadjiiski, and C. Zhou, “Deep learning in medical image analysis,” Advances in Experimental Medicine and Biology, pp. 3–21, 2020. doi:10.1007/978-3-030-33128-3_1",
+        unsafe_allow_html=True
+    )
 
     st.markdown("### <a id='gantt-chart'></a>**Gantt Chart**</h3>", unsafe_allow_html=True)
     st.image("gantt_chart.png", caption='Gantt Chart', use_column_width=True)
@@ -193,7 +222,6 @@ def display_contributions(names):
         "Team Member": names,
         "Contribution": [
             "- Managed website<br>"
-            "- Organized meetings<br>"
             "- Problem Definition<br>"
             "- Potential Results & Discussions",
             "- Introduction & Background<br>"
