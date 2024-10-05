@@ -129,22 +129,15 @@ def display_project_proposal():
     """
     st.markdown('<div class="section-header" id="project-proposal">Project Proposal</div>', unsafe_allow_html=True)
 
-    # Project Overview Video
-    st.markdown("#### **Project Overview Video**")
-    youtube_url = st.text_input("Youtube Video Here:")
-    if youtube_url:
-        video_id = extract_youtube_id(youtube_url)
-        if video_id:
-            embed_url = f"https://www.youtube.com/embed/{video_id}"
-            st.video(embed_url)
-        else:
-            st.warning("Please enter a valid YouTube URL.")
+    # Subsection for YouTube Video
+    st.markdown("### <a id='youtube-video'></a>**Project Overview Video**</h3>", unsafe_allow_html=True)
+    st.video("https://youtu.be/5lw-qKBNyoA")  # Embed the YouTube video directly
 
     # Subsections with direct content
     st.markdown("### <a id='introduction'></a>**Introduction & Background**</h3>", unsafe_allow_html=True)
     st.markdown(
         """
-        Computer Aided Diagnosis (CAD) is one of the most useful applications of technology in the medical industry today. [3] The use of CAD has the potential to improve and apply to many fields of medicine, especially Alzheimer’s disease. If detected early, the prognosis can be greatly improved, but early diagnosis with computer AI can be inconsistent given the characteristics of the disease, with average accuracy rates spanning 70-95% across various models [1]. Using various classification techniques like Adaboost, studies have been able to detect Alzheimer’s with results exceeding 90% accuracy with differentiation [2].
+        Computer Aided Diagnosis (CAD) is a useful application of technology in the medical industry [3]. The use of CAD has the potential to improve and apply to many fields of medicine, especially Alzheimer’s disease. If detected early, the prognosis can be greatly improved, but early diagnosis with CAD can be inconsistent given the characteristics of the disease, with accuracy rates spanning 70-95% across various models [1]. Using various classification techniques, studies have been able to detect Alzheimer’s with results exceeding 90% accuracy with differentiation [2].
 
         The MRI scans from this [dataset](https://www.kaggle.com/datasets/ninadaithal/imagesoasis/data) are categorized by the level of dementia of each patient: Mild, Moderate, Very Mild, and Non-Demented Dementia.
         """,
@@ -156,9 +149,9 @@ def display_project_proposal():
         "**The Problem**<br>"
         "Alzheimer’s disease is a progressive neurodegenerative disorder, and early detection is critical for patient care, yet it is often diagnosed too late due to the difficulty of identifying subtle early-stage brain degeneration.<br><br>"
         "**The Solution**<br>"
-        "We propose developing a machine learning model to analyze MRI images for early-stage Alzheimer’s detection, identifying subtle patterns in brain degeneration that may be missed by the human eye.<br><br>"
+        "We propose a machine learning model to analyze images for early-stage Alzheimer’s detection, focusing on subtle patterns of brain degeneration that may be overlooked by doctors.<br><br>"
         "**How it Differs from Prior Literature**<br>"
-        "Existing machine learning models mainly focus on detecting moderate to advanced stages of Alzheimer’s when brain degeneration is more pronounced. Our approach targets early-stage detection, which is harder to identify but crucial for improving patient outcomes by allowing timely clinical trials and treatments.",
+        "While existing models primarily detect moderate to advanced Alzheimer’s stages, our approach emphasizes early detection, which is vital for timely clinical trials and treatments.",
         unsafe_allow_html=True
     )
 
@@ -182,16 +175,17 @@ def display_project_proposal():
     st.markdown(
         """
         <b>Quantitative Measures:</b><br>
-        1. **Accuracy**: Accuracy is the ratio of correct predictions to the total number of predictions, which can identify how well the model is performing. However, it does not provide enough detail of false negatives (missing a diagnosis).<br>
-        2. **Recall (Sensitivity)**: Recall measures the proportion of people who have early-stage Alzheimer’s that the model correctly identifies. Allows us to highlight the missing positive diagnosis that the model did not detect.<br>
-        3. **Specificity (True Negative Rate)**: Specificity measures the proportion of actual negatives (healthy people without Alzheimer's) that are correctly identified by the model. Having this is important because we want the model to also identify healthy individuals to minimize false positives.<br>
-        4. **Area Under the Receiver Operating Characteristic Curve (AUC-ROC)**: ROC curve graphs plot true positive rate vs false positive rate. AUC ranges from 0 to 1 with 1 being a perfect model. Having a high score in both ensures that the model is good at distinguishing between Alzheimer’s and non-Alzheimer’s cases.<br><br>
+        1. **Accuracy**: Accuracy is the ratio of correct predictions to the total number of predictions. Does not provide enough detail of false negatives (missing a diagnosis).<br>
+        2. **Recall (Sensitivity)**: Recall measures the proportion of people the model correctly diagnoses. It allows us to highlight the missing positive diagnosis that the model did not detect.<br>
+        3. **Specificity (True Negative Rate)**: Specificity measures the proportion of actual negatives (healthy people) that are correctly identified by the model in order to minimize false positives.<br>
+        4. **Area Under the Receiver Operating Characteristic Curve (AUC-ROC)**: ROC curve graphs plot true positive rate vs false positive rate. AUC ranges from 0-1 with 1 being a perfect model.<br><br>
         
         <b>Project Goals/Expected Results:</b><br>
-        - To develop a model that can detect Alzheimer’s early, in hopes of better prevention of Alzheimer’s progressing. More diagnosis also results in more clinical trials done in order to learn and aid in future research to hopefully find a cure.<br>
-        - The data is anonymous in order to ensure patient confidentiality.<br>
+        - Develop a model that can detect Alzheimer’s early, in hopes of hindering Alzheimer’s progression.<br>
+        - More diagnosis results in more clinical trials in order to aid in future research to find a cure.
+        - Utilize anonymous data to ensure patient confidentiality<br>
         - Use ML for image processing to analyze medical scans or images.<br>
-        - We expect that the model we develop will be able to accurately diagnose or find data that can help with diagnosing a patient from their MRI scan.
+        - We expect that our model will be able to accurately diagnose or find data that can help with diagnosing a patient from their MRI scan.
         """,
         unsafe_allow_html=True
     )
@@ -252,20 +246,6 @@ def display_gitrepo():
         unsafe_allow_html=True
     )
 
-# -------------------- Helper Functions --------------------
-def extract_youtube_id(url):
-    """
-    Extracts the YouTube video ID from a given URL.
-
-    Args:
-        url (str): YouTube video URL.
-
-    Returns:
-        str or None: Extracted video ID if valid, else None.
-    """
-    match = re.search(r'(?:v=|\/)([0-9A-Za-z_-]{11}).*', url)
-    return match.group(1) if match else None
-
 # -------------------- Main Application --------------------
 def main():
     """
@@ -281,6 +261,7 @@ def main():
     st.sidebar.title("Navigation")
     st.sidebar.markdown("[Team Members](#team-members)")
     st.sidebar.markdown("[Project Proposal](#project-proposal)")
+    st.sidebar.markdown("[Proposal Video](#youtube-video)")
     st.sidebar.markdown("[Introduction & Background](#introduction)")
     st.sidebar.markdown("[Problem Definition](#problem-definition)")
     st.sidebar.markdown("[Methods](#methods)")
