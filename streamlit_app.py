@@ -4,7 +4,7 @@ from PIL import Image  # Importing Image from PIL
 import os  # Importing os for file path handling
 # import re
 
-# -------------------- Custom CSS --------------------
+# CSS stuff
 def apply_custom_css():
     css = """
     <style>
@@ -112,7 +112,7 @@ def apply_custom_css():
     """
     st.markdown(css, unsafe_allow_html=True)
 
-# -------------------- Debugging Section --------------------
+# Debugging Section 
 def list_cnn_images():
     image_dir = "cnn_images"
     st.markdown("### **Debugging: List of Images in `cnn_images` Directory**")
@@ -131,11 +131,11 @@ def list_cnn_images():
         for img in image_files:
             st.write(f"- {img}")
 
-# -------------------- Header Section --------------------
+# Header Section 
 def display_header():
     st.markdown('<div class="title">Alzheimer Detection</div>', unsafe_allow_html=True)
 
-# -------------------- Team Members Section --------------------
+# Team Members Section 
 def display_team_members(names, links):
     """
         names (list): List of team member names.
@@ -149,15 +149,19 @@ def display_team_members(names, links):
         unsafe_allow_html=True
     )
 
-# -------------------- Project Proposal Section --------------------
+# Project Proposal Section 
 def display_project_proposal():
     st.markdown('<div class="section-header" id="project-proposal">Project Proposal</div>', unsafe_allow_html=True)
-
-    # Subsection for YouTube Video
-    st.markdown("### <a id='youtube-video'></a>**Project Overview Video**", unsafe_allow_html=True)
+    
+    # Project Overview Video
+    st.markdown("### <a id='project-overview-video'></a>**Project Overview Video**", unsafe_allow_html=True)
     st.video("https://youtu.be/5lw-qKBNyoA") 
 
-    st.markdown("### <a id='introduction'></a>**Introduction & Background**", unsafe_allow_html=True)
+    # Midpoint Check Section
+    st.markdown('<div class="section-header" id="midpoint-check">Midpoint Check</div>', unsafe_allow_html=True)
+
+    # Introduction & Background
+    st.markdown("#### <a id='introduction'></a>**Introduction & Background**", unsafe_allow_html=True)
     st.markdown(
         """
         Computer Aided Diagnosis (CAD) is a useful application of technology in the medical industry [3]. The use of CAD has the potential to improve and apply to many fields of medicine, especially Alzheimer’s disease. If detected early, the prognosis can be greatly improved, but early diagnosis with CAD can be inconsistent given the characteristics of the disease, with accuracy rates spanning 70-95% across various models [1]. Using various classification techniques, studies have been able to detect Alzheimer’s with results exceeding 90% accuracy with differentiation [2].
@@ -167,7 +171,8 @@ def display_project_proposal():
         unsafe_allow_html=True
     )
 
-    st.markdown("### <a id='problem-definition'></a>**Problem Definition**", unsafe_allow_html=True)
+    # Problem Definition
+    st.markdown("#### <a id='problem-definition'></a>**Problem Definition**", unsafe_allow_html=True)
     st.markdown(
         "**The Problem**<br>"
         "Alzheimer’s disease is a progressive neurodegenerative disorder, and early detection is critical for patient care, yet it is often diagnosed too late due to the difficulty of identifying subtle early-stage brain degeneration.<br><br>"
@@ -178,12 +183,20 @@ def display_project_proposal():
         unsafe_allow_html=True
     )
 
-    st.markdown("### <a id='methods'></a>**Methods**", unsafe_allow_html=True)
+    # Methods
+    st.markdown("#### <a id='methods'></a>**Methods**", unsafe_allow_html=True)
     st.markdown(
         """
         **Dataset:**
         We will use the [OASIS MRI dataset](https://www.kaggle.com/datasets/ninadaithal/imagesoasis), which consists of 80,000 MRI brain scans, labeled according to the progression of Alzheimer’s present in the patient.
+        """,
+        unsafe_allow_html=True
+    )
 
+    # CNN Model
+    st.markdown("##### <a id='cnn-model'></a>**CNN Model**", unsafe_allow_html=True)
+    st.markdown(
+        """
         **Progress During Midterm Checkpoint:**
         During this midterm checkpoint, we worked on implementing Convolutional Neural Networks (CNN).
 
@@ -203,8 +216,14 @@ def display_project_proposal():
         3. **MaxPooling2D (MaxPooling2D)**: Reduces spatial dimensions.
         4. **Flatten (Flatten)**: Flattens the input.
         5. **Dense (Dense)**: Fully connected layers for classification.
+        """,
+        unsafe_allow_html=True
+    )
 
-        **Upcoming Models to Implement:**
+    # Upcoming Models to Implement
+    st.markdown("##### <a id='upcoming-models'></a>**Upcoming Models to Implement**", unsafe_allow_html=True)
+    st.markdown(
+        """
         - **Support Vector Machine (SVM):**
             SVMs are known for their performance with high-dimensional data, making them well-suited for classification tasks like determining the stage of Alzheimer’s in image scans. Their ability to handle complex decision boundaries makes them ideal for challenging classification problems in the dataset.
         - **Logistic Regression:**
@@ -214,10 +233,10 @@ def display_project_proposal():
     )
 
     # Results & Discussion Section 
-    st.markdown("### <a id='results-discussion'></a>**Results & Discussion**", unsafe_allow_html=True)
+    st.markdown("#### <a id='results-discussion'></a>**Results & Discussion**", unsafe_allow_html=True)
 
     # CNN Results & Discussion Subsection
-    st.markdown("#### CNN Results & Discussion", unsafe_allow_html=True)
+    st.markdown("##### <a id='cnn-results-discussion'></a>**CNN Results & Discussion**", unsafe_allow_html=True)
 
     st.markdown(
         """
@@ -229,7 +248,7 @@ def display_project_proposal():
     )
 
     try:
-        image_path = "cnn images/cnn_performance_metrics.png"  # Ensure the folder is named 'cnn images'
+        image_path = "cnn_images/cnn_performance_metrics.png"  # Ensure the folder is named 'cnn_images'
         if not os.path.exists(image_path):
             raise FileNotFoundError(f"Image not found at path: {image_path}")
         image = Image.open(image_path)
@@ -269,12 +288,12 @@ def display_project_proposal():
     st.markdown("**Additional Visualizations:**", unsafe_allow_html=True)
 
     carousel_images = [
-        "cnn images/roc_per_class.png",
-        "cnn images/prob_mild.png",
-        "cnn images/prob_mod.png",
-        "cnn images/prob_non.png",
-        "cnn images/prob_verymild.png",
-        "cnn images/learning_loss_curve.png"
+        "cnn_images/roc_per_class.png",
+        "cnn_images/prob_mild.png",
+        "cnn_images/prob_mod.png",
+        "cnn_images/prob_non.png",
+        "cnn_images/prob_verymild.png",
+        "cnn_images/learning_loss_curve.png"
     ]
 
     if 'carousel_index' not in st.session_state:
@@ -341,7 +360,7 @@ def display_contributions(names):
     st.markdown('<div class="section-header" id="contributions">Contributions</div>', unsafe_allow_html=True)
     
     # Midpoint Contributions
-    st.markdown("#### Midpoint Contributions", unsafe_allow_html=True)
+    st.markdown("#### <a id='midpoint-contributions'></a>**Midpoint Contributions**", unsafe_allow_html=True)
     
     midpoint_contribution_data = {
         "Team Member": names,
@@ -371,7 +390,7 @@ def display_contributions(names):
     st.markdown("<br>", unsafe_allow_html=True)  # Add some space between tables
 
     # Proposal Contributions 
-    st.markdown("#### Proposal Contributions", unsafe_allow_html=True)
+    st.markdown("#### <a id='proposal-contributions'></a>**Proposal Contributions**", unsafe_allow_html=True)
     
     proposal_contribution_data = {
         "Team Member": names,
@@ -398,6 +417,7 @@ def display_gitrepo():
     """
     Displays the GitHub Repository link as an embedded badge.
     """
+    st.markdown("### <a id='git-repo'></a>**GitHub Repository**", unsafe_allow_html=True)
     st.markdown(
         "[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/etan630/Alzheimer-Detection)",
         unsafe_allow_html=True
@@ -418,14 +438,20 @@ def main():
     st.sidebar.title("Navigation")
     st.sidebar.markdown("[Team Members](#team-members)")
     st.sidebar.markdown("[Project Proposal](#project-proposal)")
-    st.sidebar.markdown("[Proposal Video](#youtube-video)")
-    st.sidebar.markdown("[Introduction & Background](#introduction)")
-    st.sidebar.markdown("[Problem Definition](#problem-definition)")
-    st.sidebar.markdown("[Methods](#methods)")
-    st.sidebar.markdown("[Results & Discussion](#results-discussion)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Project Overview Video](#project-overview-video)")
+    st.sidebar.markdown("[Midpoint Check](#midpoint-check)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Introduction & Background](#introduction)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Problem Definition](#problem-definition)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Methods](#methods)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[CNN Model](#cnn-model)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Upcoming Models](#upcoming-models)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Results & Discussion](#results-discussion)")
     st.sidebar.markdown("[References](#references)")
     st.sidebar.markdown("[Gantt Chart](#gantt-chart)")
     st.sidebar.markdown("[Contributions](#contributions)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Midpoint Contributions](#midpoint-contributions)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Proposal Contributions](#proposal-contributions)")
+    st.sidebar.markdown("[GitHub Repository](#git-repo)")
 
     # Define team members
     team_members = ["Erin Tan", "Eileen Yang", "Wesley Tam", "Tong Jing", "Steven Li"]
