@@ -243,11 +243,15 @@ def display_project_proposal():
         During this midterm checkpoint, we worked on implementing Convolutional Neural Networks (CNN).
 
         **Preprocessing Methods:**
-        1. **preprocessing 1**:
-        2. **preprocessing 2**:  
+        1. **Grayscale Conversion**: Reduced complexity by having a single color channel instead of RGB.
+        2. **Normalization**: Converted 2D image arrays into 1D feature vectors.
+        3. **Standardization**: Standardized to ensure that the data had zero mean and unit variance.
+        4. **Undersampling**: Reduced the number of samples in majority classes to prevent the model from being biased towards majority classes.
+        5. **PCA**: Reduced the number of features by transforming the high-dimensional data into a lower-dimensional space while retaining variance.
 
         **Why This Algorithm?**
         - **Logistic Regression**: We chose Logistic Regression because it provided a baseline image classification, particularly when combined with feature extraction from the CNN model. It’s faster and more efficient than SVM, making a great model for quick model iteration.
+        - We used L2 regularization to reduce overfitting. We used this instead of L1 regularization because we wanted to avoid feature reduction and retain them for analysis in case they are relevant. Additionally, L2 regularization is better for multicollinear data.
         """,
         unsafe_allow_html=True
     )
@@ -663,20 +667,53 @@ As expected, the SVM and logistic regression models performed worse than the CNN
     st.image("gantt_chart.png", caption='Gantt Chart', use_container_width=True)
 
 # Contribution Section 
+# --------------------
+# Display Functions
+# --------------------
 def display_contributions(names):
     """
-    Displays the Contributions section with two styled tables:
-    1. Midpoint Contributions
-    2. Proposal Contributions
+    Displays the Contributions section with three styled tables:
+    1. Final Contributions
+    2. Midpoint Contributions
+    3. Proposal Contributions
 
     Args:
         names (list): List of team member names.
     """
     st.markdown('<div class="title" id="contributions">Contributions</div>', unsafe_allow_html=True)
+     # Function to Convert DataFrame to HTML Table
+    def table_to_html(df):
+        return df.to_html(index=False, classes='contribution-table', escape=False)
     
     # Final Contributions
     st.markdown("#### <a id='final-contributions'></a>**Final Contributions**", unsafe_allow_html=True)
-
+    
+    final_contribution_data = {
+        "Team Member": names,
+        "Contribution": [
+            "• Managed Website<br>"
+            "• SVM Preprocessing, Model, and Visualization<br>"
+            "• SVM Analysis<br>"
+            "• YouTube Script/Slides",
+            
+            "• Data Visualization<br>"
+            "• Results & Discussions<br>"
+            "• Overall Comparison<br>"
+            "• YouTube Script/Slides/Video",
+            
+            "• Logistic Regression Preprocessing and Model",
+            
+            "• Gradcam Implementation",
+            
+            "• Data Visualization<br>"
+            "• Results and Discussions<br>"
+            "• Overall Comparison<br>"
+            "• YouTube Script/Slides"
+        ]
+    }
+    df_final = pd.DataFrame(final_contribution_data)
+    st.markdown(table_to_html(df_final), unsafe_allow_html=True)
+    
     # Midpoint Contributions
     st.markdown("#### <a id='midpoint-contributions'></a>**Midpoint Contributions**", unsafe_allow_html=True)
     
@@ -686,49 +723,54 @@ def display_contributions(names):
             "• Managed Website<br>"
             "• Preprocessing Implementation<br>"
             "• Method Analysis",
+            
             "• Data Visualization<br>"
             "• Results and Discussions<br>"
             "• Method Analysis",
+            
             "• Preprocessing Implementation",
+            
             "• Environment Setup<br>"
             "• Preprocessing Implementation<br>"
             "• CNN Implementation",
+            
             "• Data Visualization<br>"
             "• Results and Discussions<br>"
             "• Method Analysis"
         ]
     }
     df_midpoint = pd.DataFrame(midpoint_contribution_data)
-    
-    def table_to_html(df):
-        return df.to_html(index=False, classes='contribution-table', escape=False)
-    
     st.markdown(table_to_html(df_midpoint), unsafe_allow_html=True)
     
-    st.markdown("<br>", unsafe_allow_html=True)  # Add some space between tables
-
     # Proposal Contributions 
     st.markdown("#### <a id='proposal-contributions'></a>**Proposal Contributions**", unsafe_allow_html=True)
     
     proposal_contribution_data = {
         "Team Member": names,
         "Contribution": [
-            "• Managed website<br>"
+            "• Managed Website<br>"
             "• Problem Definition<br>"
             "• Potential Results & Discussions",
+            
             "• Introduction & Background<br>"
             "• Potential Results & Discussions",
+            
             "• Problem Definition<br>"
             "• Methods",
+            
             "• Methods<br>"
             "• References",
+            
             "• Introduction & Background<br>"
             "• References"
         ]
     }
     df_proposal = pd.DataFrame(proposal_contribution_data)
-    
     st.markdown(table_to_html(df_proposal), unsafe_allow_html=True)
+    
+   
+    
+
 
 # Git Repo Section 
 def display_gitrepo():
