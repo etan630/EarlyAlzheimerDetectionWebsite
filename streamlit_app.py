@@ -2,9 +2,11 @@ import streamlit as st
 import pandas as pd
 from PIL import Image  # Importing Image from PIL
 import os  # Importing os for file path handling
-# import re
 
-# CSS stuff
+
+# ---------------------------
+# Helper Functions
+# ---------------------------
 def apply_custom_css():
     css = """
     <style>
@@ -40,13 +42,27 @@ def apply_custom_css():
         padding: 5px 15px; /* Add padding for better spacing */
         font-weight: 500;
     }
-    .section-header {
-        font-size: 32px;
+    .title {
+        font-size: 40px; /* Increased font size for main sections */
+        text-align: center;
         margin-top: 40px;
+        margin-bottom: 20px;
         border-bottom: 3px solid #2B6CB0; /* Blue for section headers */
         padding-bottom: 10px;
         font-weight: 600;
-        color: #2B6CB0; /* Color for section headers */
+        color: #2B6CB0;
+    }
+    .section-header {
+        font-size: 28px;
+        margin-top: 0px;
+        font-weight: 500;
+        color: #2B6CB0; 
+    }
+    .subsection-header {
+        font-size: 20px;
+        margin-top: 0px;
+        font-weight: 400;
+        color: #2B6CB0; 
     }
     .contribution-table {
         width: 100%;
@@ -112,7 +128,9 @@ def apply_custom_css():
     """
     st.markdown(css, unsafe_allow_html=True)
 
-# Debugging Section 
+# --------------------
+# Display Functions
+# --------------------
 def list_cnn_images():
     image_dir = "cnn_images"
     st.markdown("### **Debugging: List of Images in `cnn_images` Directory**")
@@ -151,17 +169,17 @@ def display_team_members(names, links):
 
 # Project Proposal Section 
 def display_project_proposal():
-    st.markdown('<div class="section-header" id="project-proposal">Project Proposal</div>', unsafe_allow_html=True)
+    st.markdown('<div class="title" id="project-proposal">Project Proposal</div>', unsafe_allow_html=True)
     
     # Project Overview Video
-    st.markdown("### <a id='project-overview-video'></a>**Project Overview Video**", unsafe_allow_html=True)
+    st.markdown('<div class="section-header" id="project-overview-video">Project Overview Video</div>', unsafe_allow_html=True)
     st.video("https://youtu.be/5lw-qKBNyoA") 
 
-    # Midpoint Check Section
-    st.markdown('<div class="section-header" id="midpoint-check">Midpoint Check</div>', unsafe_allow_html=True)
+    # Final Findings
+    st.markdown('<div class="title" id="final-findings">Final Findings</div>', unsafe_allow_html=True)
 
     # Introduction & Background
-    st.markdown("#### <a id='introduction'></a>**Introduction & Background**", unsafe_allow_html=True)
+    st.markdown('<div class="section-header" id="introduction">Introduction & Background</div>', unsafe_allow_html=True)
     st.markdown(
         """
         Computer Aided Diagnosis (CAD) is a useful application of technology in the medical industry [3]. The use of CAD has the potential to improve and apply to many fields of medicine, especially Alzheimer’s disease. If detected early, the prognosis can be greatly improved, but early diagnosis with CAD can be inconsistent given the characteristics of the disease, with accuracy rates spanning 70-95% across various models [1]. Using various classification techniques, studies have been able to detect Alzheimer’s with results exceeding 90% accuracy with differentiation [2].
@@ -172,7 +190,7 @@ def display_project_proposal():
     )
 
     # Problem Definition
-    st.markdown("#### <a id='problem-definition'></a>**Problem Definition**", unsafe_allow_html=True)
+    st.markdown('<div class="section-header" id="problem-definition">Problem Definition</div>', unsafe_allow_html=True)
     st.markdown(
         "**The Problem**<br>"
         "Alzheimer’s disease is a progressive neurodegenerative disorder, and early detection is critical for patient care, yet it is often diagnosed too late due to the difficulty of identifying subtle early-stage brain degeneration.<br><br>"
@@ -184,59 +202,79 @@ def display_project_proposal():
     )
 
     # Methods
-    st.markdown("#### <a id='methods'></a>**Methods**", unsafe_allow_html=True)
+    st.markdown('<div class="section-header" id="methods">Methods</div>', unsafe_allow_html=True)
     st.markdown(
         """
         **Dataset:**
         We will use the [OASIS MRI dataset](https://www.kaggle.com/datasets/ninadaithal/imagesoasis), which consists of 80,000 MRI brain scans, labeled according to the progression of Alzheimer’s present in the patient.
+        **Data Splitting**: We split all data for each model into 70% training, 20% testing, and 10% validation.
         """,
         unsafe_allow_html=True
     )
 
     # CNN Model
-    st.markdown("##### <a id='cnn-model'></a>**CNN Model**", unsafe_allow_html=True)
+    st.markdown('<div class="subsection-header" id="cnn-model">CNN Model</div>', unsafe_allow_html=True)
     st.markdown(
         """
-        **Progress During Midterm Checkpoint:**
-        During this midterm checkpoint, we worked on implementing Convolutional Neural Networks (CNN).
-
         **Preprocessing Methods:**
         1. **Feature Standardization**: We normalized the pixel values by dividing by 255, bringing values to a range [0,1].
         2. **Brightness Adjustment**: Randomly adjusted the brightness to between 80% - 120% of the original to vary the lighting conditions.
         3. **Zoom Range**: Randomly zoomed 1% either in or out.
         4. **Horizontal Flip**: Flipped the photos horizontally for more variety.
 
-        **Machine Learning Algorithms:**
+        **Why This Algorithm?**
         - **Convolutional Neural Networks (CNN)**: We chose CNN because CNNs are well-suited for image classification tasks, as each layer can detect features and patterns through the use of sliding kernels, progressively recognizing larger and more complex patterns in the images.
-        - **Data Splitting**: We split the data into 70% training, 20% testing, and 10% validation.
 
         **Defining the CNN Model Layers:**
-        1. **Rescaling (Rescaling)**: Rescales the input data.
-        2. **Conv2D (Conv2D)**: Applies convolutional layers to extract features.
-        3. **MaxPooling2D (MaxPooling2D)**: Reduces spatial dimensions.
-        4. **Flatten (Flatten)**: Flattens the input.
-        5. **Dense (Dense)**: Fully connected layers for classification.
+        1. **Rescaling**: Rescales the input data.
+        2. **Conv2D**: Applies convolutional layers to extract features.
+        3. **MaxPooling2D**: Reduces spatial dimensions.
+        4. **Flatten**: Flattens the input.
+        5. **Dense**: Fully connected layers for classification.
         """,
         unsafe_allow_html=True
     )
 
-    # Upcoming Models to Implement
-    st.markdown("##### <a id='upcoming-models'></a>**Upcoming Models to Implement**", unsafe_allow_html=True)
+    # logistic regression
+    st.markdown('<div class="subsection-header" id="logistic-regression-model">Logistic Regression Model</div>', unsafe_allow_html=True)
     st.markdown(
         """
-        - **Support Vector Machine (SVM):**
-            SVMs are known for their performance with high-dimensional data, making them well-suited for classification tasks like determining the stage of Alzheimer’s in image scans. Their ability to handle complex decision boundaries makes them ideal for challenging classification problems in the dataset.
-        - **Logistic Regression:**
-            Logistic Regression would provide a baseline image classification, particularly when combined with feature extraction from the CNN model. It’s faster and more efficient than SVM, making it a great model for quick iterations. It would require careful feature preprocessing to capture the patterns effectively.
+        **Progress During Midterm Checkpoint:**
+        During this midterm checkpoint, we worked on implementing Convolutional Neural Networks (CNN).
+
+        **Preprocessing Methods:**
+        1. **preprocessing 1**:
+        2. **preprocessing 2**:  
+
+        **Why This Algorithm?**
+        - **Logistic Regression**: We chose Logistic Regression because it provided a baseline image classification, particularly when combined with feature extraction from the CNN model. It’s faster and more efficient than SVM, making a great model for quick model iteration.
+        """,
+        unsafe_allow_html=True
+    )
+
+    # svm
+    st.markdown('<div class="subsection-header" id="svm-model">SVM Model</div>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        **Preprocessing Methods:**
+        1. **Grayscale Conversion**: Reduced complexity by having a single color channel instead of RGB.
+        2. **Normalization**: Converted 2D image arrays into 1D feature vectors.
+        3. **Data Type Conversion**: Converted data from float64 to float32 to half the memory consumption.
+        4. **Undersampling**: Reduced the number of samples in majority classes to prevent the model from being biased towards majority classes.
+        5. **PCA**: Reduced the number of features by transforming the high-dimensional data into a lower-dimensional space while retaining variance.
+
+        **Why This Algorithm?**
+        - **Support Vector Machine (SVM)**: SVMs are known for its performance with high-dimensional data, making it well-suited for classification tasks like determining the stage of Alzheimer’s in image scans. Its ability to handle complex decision boundaries would make it a good model for challenging classification problems in the datasets. Furthermore, using class weighting as a parameter adjusted the weights inversely proportional to class frequencies, allowing for more attention to minority classes.
+        - We specifically chose to use LinearSVC since it processed large-scale data with high dimensions faster and offered more flexible regularization options. Using SVC was first attempted due to its suitability for both linear and non-linear classification tasks; however, it was highly inefficient on the large dataset.
         """,
         unsafe_allow_html=True
     )
 
     # Results & Discussion Section 
-    st.markdown("#### <a id='results-discussion'></a>**Results & Discussion**", unsafe_allow_html=True)
+    st.markdown('<div class="section-header" id="results-discussion">Results & Discussion</div>', unsafe_allow_html=True)
 
     # CNN Results & Discussion Subsection
-    st.markdown("##### <a id='cnn-results-discussion'></a>**CNN Results & Discussion**", unsafe_allow_html=True)
+    st.markdown('<div class="subsection-header" id="cnn-results-discussion">CNN Results & Discussion</div>', unsafe_allow_html=True)
 
     st.markdown(
         """
@@ -252,7 +290,7 @@ def display_project_proposal():
         if not os.path.exists(image_path):
             raise FileNotFoundError(f"Image not found at path: {image_path}")
         image = Image.open(image_path)
-        st.image(image, caption='CNN Performance Metrics', use_column_width=True)
+        st.image(image, caption='CNN Performance Metrics', use_container_width=True)
     except Exception as e:
         st.error(f"Error loading image {image_path}: {e}")
 
@@ -284,7 +322,37 @@ def display_project_proposal():
 
     # Debugging: List images
     # list_cnn_images()
+    st.markdown("**GradCam:**", unsafe_allow_html=True)
+    st.markdown(
+        """
+        After running a gradcam algorithm on the last convolutional layer of the model, we find that the model seems to focus heavily on specific locations around the brain to determine the presence of Alzheimers, as shown in the following figures:
+        """,
+        unsafe_allow_html=True
+    )
+    try:
+        image_path = "cnn_images/grad_cam1.png"  # Ensure the folder is named 'cnn_images'
+        if not os.path.exists(image_path):
+            raise FileNotFoundError(f"Image not found at path: {image_path}")
+        image = Image.open(image_path)
+        st.image(image, caption='GradCam Example 1', use_container_width=True)
+    except Exception as e:
+        st.error(f"Error loading image {image_path}: {e}")
 
+    try:
+        image_path = "cnn_images/grad_cam2.png"  # Ensure the folder is named 'cnn_images'
+        if not os.path.exists(image_path):
+            raise FileNotFoundError(f"Image not found at path: {image_path}")
+        image = Image.open(image_path)
+        st.image(image, caption='GradCam Example 2', use_container_width=True)
+    except Exception as e:
+        st.error(f"Error loading image {image_path}: {e}")
+
+    st.markdown(
+        """
+        These figures all highlight the frontal lobe of the brain which shows that the model seems to realize that demented patients have a different brain size and frontal lobe than healthy patients. The gradcam also confirms that the model isn’t looking for watermarks in the image that would label the image.
+        """,
+        unsafe_allow_html=True
+    )
     st.markdown("**Additional Visualizations:**", unsafe_allow_html=True)
 
     carousel_images = [
@@ -307,7 +375,7 @@ def display_project_proposal():
         if not os.path.exists(current_image_path):
             raise FileNotFoundError(f"Image not found at path: {current_image_path}")
         current_image = Image.open(current_image_path)
-        st.image(current_image, caption=os.path.basename(current_image_path), use_column_width=True)
+        st.image(current_image, caption=os.path.basename(current_image_path), use_container_width=True)
     except Exception as e:
         st.error(f"Error loading image {current_image_path}: {e}")
 
@@ -338,6 +406,250 @@ def display_project_proposal():
         unsafe_allow_html=True
     )
 
+    # Logistic Regression Results & Discussion Subsection
+    st.markdown('<div class="subsection-header" id="logistic-results-discussion">Logistic Regression Results & Discussion</div>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        Logistic Regression models are good and efficient at classifying the differences between classes. We wanted to see if Logistic Regression would compare to our CNN model. We first trained a model on the original data (before balancing), then we trained a model on a balanced subset of the data(after balancing). The reasons for this are outlined in the **Comparisons and Aside on Error** section. Our Logistic Regression model shows the following performance metrics when executed on a 10% testing dataset of images:
+
+        """,
+        unsafe_allow_html=True
+    )
+
+    try:
+        image_path = "logistic_images/logistic_performance_metrics.png"  # Ensure the folder is named 'cnn_images'
+        if not os.path.exists(image_path):
+            raise FileNotFoundError(f"Image not found at path: {image_path}")
+        image = Image.open(image_path)
+        st.image(image, caption='Logistic Regression Performance Metrics', use_container_width=True)
+    except Exception as e:
+        st.error(f"Error loading image {image_path}: {e}")
+
+    # Create a table with metrics and values
+    logistic_metrics = {
+        "Metric": ["Accuracy", "Precision", "Recall", "F1 Score"],
+        "Value Before": [0.9243, 0.9217, 0.9013, 0.9114],
+        "Value After": [0.9044, 0.9328, 0.9347, 0.9337]
+    }
+    df_logistic_metrics = pd.DataFrame(logistic_metrics)
+
+    def table_to_html(df):
+        return df.to_html(index=False, classes='contribution-table', escape=False)
+
+    st.markdown("**Performance Metrics:**", unsafe_allow_html=True)
+    st.markdown(table_to_html(df_logistic_metrics), unsafe_allow_html=True)
+
+    # Explanations for each metric
+    st.markdown(
+        """
+        We see from the metrics that the model achieved a very good performance on the test data before and after we balanced the dataset, with values scoring around 0.91 across all metrics. The interpretations of each metric are as follows:
+        
+        - **Accuracy**: Out of all predictions made by the model, 91% of predictions were correct classifications of the brain scan.
+        - **Precision**: Averaged across each class, out of all positive predictions made by the model for that class, 91% of them were correct classifications of the brain scan.
+        - **Recall**: Averaged across each class, out of all brain scans that were truly of that class, the model correctly classified them 91% of the time.
+        - **F1 Score**: The high F1 score indicates a good balance between precision and recall. 
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown("**Additional Visualizations:**", unsafe_allow_html=True)
+
+    # Define logistic regression carousel images
+    logistic_carousel_images = [
+        "logistic_images/log_roc_before.png",
+        "logistic_images/log_confusion_before.png",
+        "logistic_images/log_roc_after.png",
+        "logistic_images/log_confusion_after.png"
+    ]
+
+    # Initialize session state for logistic carousel if not already set
+    if 'logistic_carousel_index' not in st.session_state:
+        st.session_state.logistic_carousel_index = 0
+
+    logistic_total_images = len(logistic_carousel_images)
+
+    # Display the current logistic regression image
+    current_logistic_image_path = logistic_carousel_images[st.session_state.logistic_carousel_index]
+    try:
+        if not os.path.exists(current_logistic_image_path):
+            raise FileNotFoundError(f"Image not found at path: {current_logistic_image_path}")
+        current_logistic_image = Image.open(current_logistic_image_path)
+        st.image(current_logistic_image, caption=os.path.basename(current_logistic_image_path), use_container_width=True)
+    except Exception as e:
+        st.error(f"Error loading image {current_logistic_image_path}: {e}")
+
+    # Create three columns for navigation buttons (Previous, Spacer, Next)
+    logistic_button_col1, logistic_button_col2, logistic_button_col3 = st.columns([1, 2, 1])
+
+    with logistic_button_col1:
+        pass  # Empty column for spacing
+
+    with logistic_button_col2:
+        # Previous Button
+        if st.button("Previous (Logistic)", key="log_prev_button"):
+            st.session_state.logistic_carousel_index = (st.session_state.logistic_carousel_index - 1) % logistic_total_images
+
+    with logistic_button_col3:
+        # Next Button
+        if st.button("Next (Logistic)", key="log_next_button"):
+            st.session_state.logistic_carousel_index = (st.session_state.logistic_carousel_index + 1) % logistic_total_images
+    
+    # Concluding paragraph
+    st.markdown(
+        """
+        Above we see the ROC curve produced for each class, plotting true positive rate against false positive rate. 
+
+The moderate dementia class had a near perfect area under the curve and the best performance, suggesting that the model was highly effective at identifying patients with moderate dementia. This is evident in the confusion matrix, where we see that there were no false negatives when examining moderately demented patients. For the other classes, they show poorer but still fair performance, with mildly demented patients with the second highest area under the curve followed by non-demented patients then finally patients with very mild dementia.
+
+From the results, it is evident that the model is more effective at identifying certain stages of dementia than others in a pattern very similar to what we see in the logistic regression model. Based on the AOC values, the model can identify moderate and mild dementia relatively well with high sensitivity and specificity. It performs significantly worse with non-demented and very mildly demented patients, which is evident in the confusion matrix as the very mildly demented and nondemented cells show significant mispredictions; the model frequently classified nondemented patients as very mildly demented and very mildly demented patients as nondemented. This pattern makes sense, and similarly to the logistic regression model, we theorize that the pattern is related to magnitude of difference between various classes; non demented and very mildly dementia likely have a very low magnitude of difference between images while mild dementia and moderate dementia are both more distinct, resulting in a relatively higher misclassification rate for nondemented and very mildly demented compared to mild and moderate dementia. The model is likely under fitted for non demented and very mildly demented classes.
+
+Note that this model was trained on a slightly modified dataset, the reasons for which we discuss in the next section.
+
+        """,
+        unsafe_allow_html=True
+    )
+
+
+    # SVM Regression Results & Discussion Subsection
+    st.markdown('<div class="subsection-header" id="svm-results-discussion">SVM Results & Discussion</div>', unsafe_allow_html=True)
+    
+    st.markdown(
+        """
+        We chose to implement SVM because it can handle high dimension data, and separate different classes with clear margins. SVMs are also less prone to overfitting than neural networks, so we wanted to include the model in our project. Our SVM model shows the following performance metrics when executed on a 20% testing dataset of images:
+        """,
+        unsafe_allow_html=True
+    )
+
+    try:
+        image_path = "svm_images/svm_performance_metrics.png"  # Ensure the folder is named 'cnn_images'
+        if not os.path.exists(image_path):
+            raise FileNotFoundError(f"Image not found at path: {image_path}")
+        image = Image.open(image_path)
+        st.image(image, caption='SVM Performance Metrics', use_container_width=True)
+    except Exception as e:
+        st.error(f"Error loading image {image_path}: {e}")
+
+    # Create a table with metrics and values
+    svm_metrics = {
+        "Metric": ["Accuracy", "Precision", "Recall", "F1 Score"],
+        "Value": [0.7646, 0.8463, 0.7646, 0.7858]
+    }
+    df_svm_metrics = pd.DataFrame(svm_metrics)
+
+    def table_to_html(df):
+        return df.to_html(index=False, classes='contribution-table', escape=False)
+
+    st.markdown("**Performance Metrics:**", unsafe_allow_html=True)
+    st.markdown(table_to_html(df_svm_metrics), unsafe_allow_html=True)
+
+    # Explanations for each metric
+    st.markdown(
+        """
+        We see from the metrics that the model achieved a fair performance on the test data, with values hovering between 0.75 and 0.85 across all metrics. The interpretations of each metric are as follows:
+        
+        - **Accuracy**: Out of all predictions made by the model, 76.46% of predictions were correct classifications of the brain scan.
+        - **Precision**: Averaged across each class, out of all positive predictions made by the model for that class, 84.63% of them were correct classifications of the brain scan.
+        - **Recall**: Averaged across each class, out of all brain scans that were truly of that class, the model correctly classified them 76.46% of the time.
+        - **F1 Score**: The moderately high F1 score indicates a relatively good balance between precision and recall.
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown("**Additional Visualizations:**", unsafe_allow_html=True)
+
+    # Define SVM images
+    svm_carousel_images = [
+        "svm_images/svm_roc.png",
+        "svm_images/svm_confusion_matrix.png"
+    ]
+
+    # Use a unique session state for the SVM carousel
+    if 'svm_carousel_index' not in st.session_state:
+        st.session_state.svm_carousel_index = 0
+
+    svm_total_images = len(svm_carousel_images)
+
+    # Display the current image
+    current_svm_image_path = svm_carousel_images[st.session_state.svm_carousel_index]
+    try:
+        if not os.path.exists(current_svm_image_path):
+            raise FileNotFoundError(f"Image not found at path: {current_svm_image_path}")
+        current_svm_image = Image.open(current_svm_image_path)
+        st.image(current_svm_image, caption=os.path.basename(current_svm_image_path), use_container_width=True)
+    except Exception as e:
+        st.error(f"Error loading image {current_svm_image_path}: {e}")
+
+    # Create two columns for navigation buttons
+    svm_button_col1, svm_button_col2, svm_button_col3 = st.columns([1, 2, 1])
+
+    with svm_button_col1:
+        pass
+
+    with svm_button_col2:
+        if st.button("Previous (SVM)", key="svm_prev_button"):
+            st.session_state.svm_carousel_index = (st.session_state.svm_carousel_index - 1) % svm_total_images
+
+    with svm_button_col3:
+        if st.button("Next (SVM)", key="svm_next_button"):
+            st.session_state.svm_carousel_index = (st.session_state.svm_carousel_index + 1) % svm_total_images
+
+    # Concluding paragraph
+    st.markdown(
+        """
+        Above we see the ROC curve produced for each class, plotting true positive rate against false positive rate. 
+
+The moderate dementia class had a near perfect area under the curve and the best performance, suggesting that the model was highly effective at identifying patients with moderate dementia. This is evident in the confusion matrix, where we see that there were no false negatives when examining moderately demented patients. For the other classes, they show poorer but still fair performance, with mildly demented patients with the second highest area under the curve followed by non-demented patients then finally patients with very mild dementia.
+
+From the results, it is evident that the model is more effective at identifying certain stages of dementia than others in a pattern very similar to what we see in the logistic regression model. Based on the AOC values, the model can identify moderate and mild dementia relatively well with high sensitivity and specificity. It performs significantly worse with non-demented and very mildly demented patients, which is evident in the confusion matrix as the very mildly demented and nondemented cells show significant mispredictions; the model frequently classified nondemented patients as very mildly demented and very mildly demented patients as nondemented. This pattern makes sense, and similarly to the logistic regression model, we theorize that the pattern is related to magnitude of difference between various classes; non demented and very mildly dementia likely have a very low magnitude of difference between images while mild dementia and moderate dementia are both more distinct, resulting in a relatively higher misclassification rate for nondemented and very mildly demented compared to mild and moderate dementia. The model is likely under fitted for non demented and very mildly demented classes.
+
+Note that this model was trained on a slightly modified dataset, the reasons for which we discuss in the next section.
+
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Comparison Results & Discussion Subsection
+    st.markdown('<div class="subsection-header" id="comparison-results-discussion">Comparison and an Aside on Error</div>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        Before continuing with our analysis, we would like to note that after obtaining results for the CNN, we sought explanations for the causes of the highly accurate performance. We investigated data leakage as a possible cause, but we see from the image divisions  below that there was no leakage.
+        """,
+        unsafe_allow_html=True
+    )
+
+    try:
+        image_path = "comparison_images/leakage_investigation.png"  # Ensure the folder is named 'cnn_images'
+        if not os.path.exists(image_path):
+            raise FileNotFoundError(f"Image not found at path: {image_path}")
+        image = Image.open(image_path)
+        st.image(image, caption='Leakage Investigation', use_container_width=True)
+    except Exception as e:
+        st.error(f"Error loading image {image_path}: {e}")
+
+    st.markdown(
+        """
+        We noticed that the dataset was highly skewed toward nondemented images, with the class containing 137 times more images than the smallest class. This would explain the highly accurate performance, wherein the other classes are “drowned out” and the model is able to accurately predict most of the time. Hence, to control for this bias, we decided to train and test logistic regression and SVM on a smaller subset of the largest class to reduce the disparity. This had a notable effect on the final performance of both logistic regression and SVM. Thus, from this point on, we will compare logistic regression and SVM more directly since they were both trained on balanced datasets, and we will consider CNNs separately.
+ 
+Overall, based purely on metrics, our initial prediction that CNN would perform the best was correct, followed by logistic regression, then SVM. Comparing the CNN with the other models, the CNN had significantly better performance, encroaching on nearly perfect accuracy. Even with the CNN being trained on a skewed dataset that boosted its accuracy, the degree to which it approached perfect reflects the strengths of CNNs’ learning mechanisms for image classification relative to other models. CNNs use hidden layers and are better at capturing complex patterns, details, and features, especially when it comes to classifying images that are filled with intricate details. Hence, this magnitude of difference between the CNN model and the other models makes sense.
+
+Comparing the logistic regression and SVM, which were both trained on the balanced dataset, the logistic regression model had significantly better performance, encroaching on accuracy nearing 0.9 compared to 0.75 for the SVM mode. The poorer performance of the SVM was likely due to the use of a linear kernel that kept the data points linearly inseparable, producing a greater degree of misclassification. Additionally, both models had lower areas under the ROC curve for nondemented and very mild dementia classes, indicating that they both had the same problem with misclassifying very mild dementia as nondemented and nondemented as very mild dementia. This provides further evidence to support our theory that very mild dementia and nondemented images have very similar features.
+
+As expected, the SVM and logistic regression models performed worse than the CNN model due to being trained on realistic, balanced data sets; however, their performance is not necessarily poor, with metrics hovering around 0.93 for the logistic regression model and 0.75-0.85 for the SVM model. When used to predict dementia on another separate dataset, we expect SVM and logistic regression to retain a greater degree of performance compared to the CNN. This is because being trained on a skewed dataset, CNN is less generalizable and is likely to experience a larger decline in performance when predicting on fresh testing data, whereas SVM and logistic regression will be more robust. If all three models were trained on the same balanced dataset, we hypothesize that CNNs would likely perform better than both logistic regression and SVM due to the levels of feature complexity learning that CNNs can achieve.
+
+        """,
+        unsafe_allow_html=True
+    )
+
+
+    # Next Steps Results & Discussion Subsection
+    st.markdown('<div class="subsection-header" id="next-steps-results-discussion">Next Steps</div>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        We realized while implementing the SVM model that the near perfect performance of the first two models was likely a result of the skewed dataset we were working with. As we mentioned above, this was not corrected for in the CNN but was in the logistic regression and SVM model. In the future, it may be valuable to retrain our model on a completely separate, less skewed dataset and compare its performance to this dataset. We expect that metrics will decline for CNNs and logistic regression, but it will be much more realistic and accurate in practice. We also ran into problems with our computer performance not being able to handle the complexity of some models, specifically the SVM model. We ended up using SVC instead of SVM which definitely could have affected some performance. In the future, we can invest/borrow the school’s more powerful computers to train the model that will definitely be able to handle the large datasets. 
+        """,
+        unsafe_allow_html=True
+    )
+
     # References Section 
     st.markdown("### <a id='references'></a>**References**", unsafe_allow_html=True)
     st.markdown(
@@ -348,7 +660,7 @@ def display_project_proposal():
     )
 
     st.markdown("### <a id='gantt-chart'></a>**Gantt Chart**", unsafe_allow_html=True)
-    st.image("gantt_chart.png", caption='Gantt Chart', use_column_width=True)
+    st.image("gantt_chart.png", caption='Gantt Chart', use_container_width=True)
 
 # Contribution Section 
 def display_contributions(names):
@@ -360,8 +672,11 @@ def display_contributions(names):
     Args:
         names (list): List of team member names.
     """
-    st.markdown('<div class="section-header" id="contributions">Contributions</div>', unsafe_allow_html=True)
+    st.markdown('<div class="title" id="contributions">Contributions</div>', unsafe_allow_html=True)
     
+    # Final Contributions
+    st.markdown("#### <a id='final-contributions'></a>**Final Contributions**", unsafe_allow_html=True)
+
     # Midpoint Contributions
     st.markdown("#### <a id='midpoint-contributions'></a>**Midpoint Contributions**", unsafe_allow_html=True)
     
@@ -442,16 +757,23 @@ def main():
     st.sidebar.markdown("[Team Members](#team-members)")
     st.sidebar.markdown("[Project Proposal](#project-proposal)")
     st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Project Overview Video](#project-overview-video)")
-    st.sidebar.markdown("[Midpoint Check](#midpoint-check)")
+    st.sidebar.markdown("[Final Findings](#final-findings)")
     st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Introduction & Background](#introduction)")
     st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Problem Definition](#problem-definition)")
     st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Methods](#methods)")
     st.sidebar.markdown("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[CNN Model](#cnn-model)")
-    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Upcoming Models](#upcoming-models)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Logistic Regression Model](#logistic-regression-model)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[SVM Model](#svm-model)")
     st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Results & Discussion](#results-discussion)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[CNN Results & Discussion](#cnn-results-discussion)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Logistic Regression Results & Discussion](#logistic-results-discussion)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[SVM Results & Discussion](#svm-results-discussion)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Comparison and an Aside on Error](#comparison-results-discussion)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Next Steps](#next-steps-results-discussion)")
     st.sidebar.markdown("[References](#references)")
     st.sidebar.markdown("[Gantt Chart](#gantt-chart)")
     st.sidebar.markdown("[Contributions](#contributions)")
+    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Final Contributions](#final-contributions)")
     st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Midpoint Contributions](#midpoint-contributions)")
     st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Proposal Contributions](#proposal-contributions)")
     st.sidebar.markdown("[GitHub Repository](#git-repo)")
