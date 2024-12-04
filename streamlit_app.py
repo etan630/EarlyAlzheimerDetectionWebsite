@@ -169,11 +169,10 @@ def display_team_members(names, links):
 
 # Project Proposal Section 
 def display_project_proposal():
-    st.markdown('<div class="title" id="project-proposal">Project Proposal</div>', unsafe_allow_html=True)
+    st.markdown('<div class="title" id="project-proposal">Video Overview</div>', unsafe_allow_html=True)
     
     # Project Overview Video
-    st.markdown('<div class="section-header" id="project-overview-video">Project Overview Video</div>', unsafe_allow_html=True)
-    st.video("https://youtu.be/5lw-qKBNyoA") 
+    st.video("https://www.youtube.com/watch?v=u_W8FndaQbk") 
 
     # Final Findings
     st.markdown('<div class="title" id="final-findings">Final Findings</div>', unsafe_allow_html=True)
@@ -797,8 +796,7 @@ def main():
     # Sidebar for navigation
     st.sidebar.title("Navigation")
     st.sidebar.markdown("[Team Members](#team-members)")
-    st.sidebar.markdown("[Project Proposal](#project-proposal)")
-    st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Project Overview Video](#project-overview-video)")
+    st.sidebar.markdown("[Video Overview](#project-proposal)")
     st.sidebar.markdown("[Final Findings](#final-findings)")
     st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Introduction & Background](#introduction)")
     st.sidebar.markdown("&nbsp;&nbsp;&nbsp;[Problem Definition](#problem-definition)")
